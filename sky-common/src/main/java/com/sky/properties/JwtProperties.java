@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+//这个注解代表是从配置文件里面读取的各个成员变量的数值，目的是便于修改配置
 @ConfigurationProperties(prefix = "sky.jwt")
 @Data
 public class JwtProperties {
