@@ -93,4 +93,12 @@ public class EmployeeController {
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
     }
+
+    @PostMapping("/status/{status}")
+    //注意，该接口是否禁用使用地址传参，因此需要@PathVariable注解，而id又由get方法用&拼接在地址的后面，因此不需要注解
+    public Result startOrStop(@PathVariable Integer status,Long id) {
+        log.info("启停种类：{}，启停账号：{}",status,id);
+        employeeService.startOrStop(status,id);
+        return Result.success();
+    }
 }
