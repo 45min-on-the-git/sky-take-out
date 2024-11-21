@@ -26,7 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
-@Api(tags = "员工登录退出的接口")
+@Api(tags = "员工管理")
 public class EmployeeController {
 
     @Autowired
