@@ -95,10 +95,27 @@ public class EmployeeController {
     }
 
     @PostMapping("/status/{status}")
-    //注意，该接口是否禁用使用地址传参，因此需要@PathVariable注解，而id又由get方法用&拼接在地址的后面，因此不需要注解
+    @ApiOperation(value = "启用停用员工")
+    //注意，该接口前面的status使用地址传参，因此需要@PathVariable注解，而后面的status是id又由get方法用&拼接在地址的后面，因此不需要注解
     public Result startOrStop(@PathVariable Integer status,Long id) {
         log.info("启停种类：{}，启停账号：{}",status,id);
         employeeService.startOrStop(status,id);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "数据回显")
+    public Result<Employee> getById(@PathVariable Long id) {
+        Employee employee =  employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    //这里和新增员工一样都没有加路径，但却可以区分两个请求的原因是一个是post方法，一个是put方法
+    //这里需要前端确定传回的数据均不为空，否则为空的地方会被替换成空白
+    @PutMapping()
+    @ApiOperation(value = "修改员工信息")
+    public Result update(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.update(employeeDTO);
         return Result.success();
     }
 }
