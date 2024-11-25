@@ -38,35 +38,43 @@ public class CategoryController {
         return Result.success();
     }
 
-    //TODO:不确定这个接口里的传参对不对，需要看一下老师的
     @ApiOperation(value = "根据id删除分类")
-    @DeleteMapping("/{id}")
-    public Result xxxmethod2() {
+    @DeleteMapping
+    public Result<String> deleteById(Long id) {
+        log.info("即将删除：{}",id);
+        categoryService.deleteById(id);
         return Result.success();
     }
 
     @ApiOperation(value = "修改分类")
     @PutMapping()
-    public Result xxxmethod3() {
+    public Result<String> update(@RequestBody CategoryDTO categoryDTO) {
+        categoryService.update(categoryDTO);
         return Result.success();
     }
 
     @ApiOperation(value = "启用禁用分类")
     @PostMapping("/status/{status}")
-    public Result xxxmethod4() {
+    //前面是修改成什么状态，后面是要修改的id
+    public Result<String> startOrStop(@PathVariable Integer status,Long id) {
+        log.info("修改状态：{}，修改id{}",status,id);
+        categoryService.startOrStop(status,id);
         return Result.success();
     }
 
     @ApiOperation(value = "分类分页查询")
     @GetMapping("/page")
     public Result<PageResult> page(CategoryPageQueryDTO categoryPageQueryDTO) {
+        log.info("正在进行分页查询：{}",categoryPageQueryDTO);
         PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
         return Result.success(pageResult);
     }
 
+    //TODO:该接口疑似并不适用，根据分类查询的功能使用的是分类分页查询
     @ApiOperation(value = "根据类型查询分类")
     @GetMapping("/list")
     public Result<List<Category>> selectByType(Integer type) {
+        log.info("需要查找的类型为：{}",type);
         List<Category> list = categoryService.list(type);
         return Result.success(list);
     }
