@@ -55,4 +55,9 @@ public class CategoryServiceImpl implements CategoryService {
         pageResult.setRecords(result);
         return pageResult;
     }
+
+    @Override
+    public List<Category> list(Integer type) {
+        return categoryMapper.selectByType(type);
+    }
 }

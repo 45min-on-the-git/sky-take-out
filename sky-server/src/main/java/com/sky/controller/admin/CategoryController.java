@@ -3,6 +3,7 @@ package com.sky.controller.admin;
 
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
@@ -14,6 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 分类管理
@@ -63,8 +66,9 @@ public class CategoryController {
 
     @ApiOperation(value = "根据类型查询分类")
     @GetMapping("/list")
-    public Result xxxmethod6() {
-        return Result.success();
+    public Result<List<Category>> selectByType(Integer type) {
+        List<Category> list = categoryService.lst(type);
+        return Result.success(list);
     }
 
 }
