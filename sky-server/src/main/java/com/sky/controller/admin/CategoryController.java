@@ -56,8 +56,8 @@ public class CategoryController {
     @ApiOperation(value = "启用禁用分类")
     @PostMapping("/status/{status}")
     //前面是修改成什么状态，后面是要修改的id
-    public Result<String> startOrStop(@PathVariable Integer status,Long id) {
-        log.info("修改状态：{}，修改id{}",status,id);
+    public Result<String> startOrStop(Long id,@PathVariable Integer status) {
+        log.info("修改id：{}，修改状态{}",id,status);
         categoryService.startOrStop(status,id);
         return Result.success();
     }

@@ -96,8 +96,8 @@ public class EmployeeController {
 
     @PostMapping("/status/{status}")
     @ApiOperation(value = "启用停用员工")
-    //注意，该接口前面的status使用地址传参，因此需要@PathVariable注解，而后面的status是id又由get方法用&拼接在地址的后面，因此不需要注解
-    public Result startOrStop(@PathVariable Integer status,Long id) {
+    //注意，该接口中两个status分别是id和状态，这里设计个人感觉不合理，应该换成/id/{status}，同时需要记得地址中动态参数需要加@PathVariable注解
+    public Result startOrStop(Long id,@PathVariable Integer status) {
         log.info("启停种类：{}，启停账号：{}",status,id);
         employeeService.startOrStop(status,id);
         return Result.success();
