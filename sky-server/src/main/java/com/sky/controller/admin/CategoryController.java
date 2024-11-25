@@ -1,7 +1,10 @@
 package com.sky.controller.admin;
 
 
+import com.sky.dto.CategoryDTO;
+import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.properties.JwtProperties;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
 import com.sky.service.EmployeeService;
@@ -25,9 +28,10 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @ApiOperation(value = "新增分类")
-    @PostMapping()
-    public Result save() {
-
+    @PostMapping
+    public Result<String> save(@RequestBody CategoryDTO categoryDTO) {
+        log.info("新增分类：{}",categoryDTO);
+        categoryService.save(categoryDTO);
         return Result.success();
     }
 
@@ -52,8 +56,9 @@ public class CategoryController {
 
     @ApiOperation(value = "分类分页查询")
     @GetMapping("/page")
-    public Result xxxmethod5() {
-        return Result.success();
+    public Result<PageResult> page(CategoryPageQueryDTO categoryPageQueryDTO) {
+        PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
+        return Result.success(pageResult);
     }
 
     @ApiOperation(value = "根据类型查询分类")
