@@ -56,7 +56,7 @@ public class MinioUtil {
                     .build());
             log.info("文件预览地址:{}",path);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("文件上传失败：{}",e.getMessage());
         }
         return path;
     }
